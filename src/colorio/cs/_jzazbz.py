@@ -4,6 +4,7 @@ from numpy.typing import ArrayLike
 
 from .._exceptions import ColorioError
 from ._color_space import ColorSpace
+from ._helpers import register
 
 
 class JzAzBz(ColorSpace):
@@ -22,11 +23,11 @@ class JzAzBz(ColorSpace):
     def __init__(self):
         self.b = 1.15
         self.g = 0.66
-        self.c1 = 3424 / 2 ** 12
-        self.c2 = 2413 / 2 ** 7
-        self.c3 = 2392 / 2 ** 7
-        self.n = 2610 / 2 ** 14
-        self.p = 1.7 * 2523 / 2 ** 5
+        self.c1 = 3424 / 2**12
+        self.c2 = 2413 / 2**7
+        self.c3 = 2392 / 2**7
+        self.n = 2610 / 2**14
+        self.p = 1.7 * 2523 / 2**5
         self.d = -0.56
         self.d0 = 1.6295499532821566e-11
 
@@ -76,3 +77,6 @@ class JzAzBz(ColorSpace):
         y = (y_ + (self.g - 1) * x) / self.g
         # return (np.array([x, y, z_]).T * self.whitepoint).T
         return np.array([x, y, z_])
+
+
+register("jzazbz", JzAzBz())

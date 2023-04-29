@@ -14,7 +14,7 @@
 [![Discord](https://img.shields.io/static/v1?logo=discord&logoColor=white&label=chat&message=on%20discord&color=7289da&style=flat-square)](https://discord.gg/hnTJ5MRX2Y)
 
 [![gh-actions](https://img.shields.io/github/workflow/status/nschloe/colorio/ci?style=flat-square)](https://github.com/nschloe/colorio/actions?query=workflow%3Aci)
-[![codecov](https://img.shields.io/codecov/c/github/nschloe/colorio.svg?style=flat-square)](https://codecov.io/gh/nschloe/colorio)
+[![codecov](https://img.shields.io/codecov/c/github/nschloe/colorio.svg?style=flat-square)](https://app.codecov.io/gh/nschloe/colorio)
 [![LGTM](https://img.shields.io/lgtm/grade/python/github/nschloe/colorio.svg?style=flat-square)](https://lgtm.com/projects/g/nschloe/colorio)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
@@ -51,26 +51,39 @@ Observers:
 
 ### Color coordinates and spaces
 
-Color coordinates are handled as NumPy arrays or as `ColorCoordinates`, a thin wrapper
-that retains the color space information and has some handy helper methods. For example, to interpolate two sRGB colors in OKLAB, and return the sRGB:
+Color coordinates are handled as NumPy arrays or as `ColorCoordinates`, a thin
+wrapper around the data that retains the color space information and has some
+handy helper methods. Color spaces can be instantiated from the classes in
+`colorio.cs`, e.g.,
 
 ```python
-from colorio.cs import ColorCoordinates, OKLAB, SRGB1, SRGBhex
+import colorio
+
+colorio.cs.CIELAB()
+```
+
+Most methods that accept such a colorspace also accept a string, e.g.,
+`cielab`.
+
+As an example, to interpolate two sRGB colors in OKLAB, and return the sRGB:
+
+```python
+from colorio.cs import ColorCoordinates
 
 # you can also plug in large numpy arrays instead of two lists here
-c0 = ColorCoordinates([1.0, 1.0, 0.0], SRGB1())  # yellow
-c1 = ColorCoordinates([0.0, 0.0, 1.0], SRGB1())  # blue
+c0 = ColorCoordinates([1.0, 1.0, 0.0], "srgb1")  # yellow
+c1 = ColorCoordinates([0.0, 0.0, 1.0], "srgb1")  # blue
 
 # naive interpolation gives [0.5, 0.5, 0.5], a mid gray
 
 # convert to OKLAB
-c0.convert(OKLAB())
-c1.convert(OKLAB())
+c0.convert("oklab")
+c1.convert("oklab")
 
 # interpolate
 c2 = (c0 + c1) * 0.5
 
-c2.convert(SRGBhex(mode="clip"))
+c2.convert("srgbhex", mode="clip")
 
 print(c2.color_space)
 print(c2.data)
@@ -211,8 +224,11 @@ into other color spaces. The above images show the sRGB gamut in different color
 ```python
 import colorio
 
-colorspace = colorio.cs.CIELAB()
-p = colorio.plot_rgb_gamut(colorspace, n=51, show_grid=True)
+p = colorio.plot_rgb_gamut(
+    "cielab",  # or colorio.cs.CIELAB()
+    n=51,
+    show_grid=True,
+)
 p.show()
 ```
 
@@ -221,12 +237,11 @@ For more visualization options, you can store the sRGB data in a file
 ```python
 import colorio
 
-colorspace = colorio.cs.CIELAB()
-colorio.save_rgb_gamut("srgb.vtk", colorspace, n=51)
+colorio.save_rgb_gamut("srgb.vtk", "cielab", n=51)
 # all formats supported by https://github.com/nschloe/meshio
 ```
 
-an open it with a tool of your choice. See
+and open it with a tool of your choice. See
 [here](https://github.com/nschloe/colorio/wiki/Visualizing-VTK-files) for how to open
 the file in [ParaView](https://www.paraview.org/).
 
@@ -237,8 +252,7 @@ For lightness slices of the sRGB gamut, use
 ```python
 import colorio
 
-colorspace = colorio.cs.CIELAB()
-p = colorio.plot_rgb_slice(colorspace, lightness=50.0, n=51)
+p = colorio.plot_rgb_slice("cielab", lightness=50.0, n=51)
 p.show()
 # or
 # p.screenshot("screenshot.png")
@@ -260,10 +274,11 @@ import colorio
 illuminant = colorio.illuminants.d65()
 observer = colorio.observers.cie_1931_2()
 
-colorspace = colorio.cs.XYZ(100)
-
-colorio.save_surface_gamut("surface.vtk", colorspace, observer, illuminant)
-p = colorio.plot_surface_gamut(colorspace, observer, illuminant)
+p = colorio.plot_surface_gamut(
+    "xyz100",  # or colorio.cs.XYZ(100)
+    observer,
+    illuminant,
+)
 p.show()
 ```
 
@@ -298,8 +313,7 @@ For slices, use
 ```python
 import colorio
 
-colorspace = colorio.cs.CIELAB()
-plt = colorio.plot_visible_slice(colorspace, lightness=0.5)
+plt = colorio.plot_visible_slice("cielab", lightness=0.5)
 plt.show()
 ```
 
@@ -313,8 +327,7 @@ below](#hue-linearity).)
 ```python
 import colorio
 
-lab = colorio.cs.CIELAB()
-plt = colorio.plot_primary_srgb_gradients(lab)
+plt = colorio.plot_primary_srgb_gradients("cielab")
 plt.show()
 ```
 

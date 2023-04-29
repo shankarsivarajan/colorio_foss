@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 import colorio
-from colorio.cs import SRGB1, ColorCoordinates, SRGBhex, SRGBlinear, convert
+from colorio.cs import ColorCoordinates, SRGBlinear, convert
 
 rng = np.random.default_rng(0)
 
@@ -19,8 +19,8 @@ rng = np.random.default_rng(0)
     ],
 )
 def test_reference_srgb(vals, ref):
-    vals = ColorCoordinates(vals, SRGB1())
-    assert np.all(abs(convert(vals, SRGBlinear()).data - ref) < 1.0e-14 * np.array(ref))
+    vals = ColorCoordinates(vals, "SRGB1")
+    assert np.all(abs(convert(vals, "SRGBlinear").data - ref) < 1.0e-14 * np.array(ref))
 
 
 @pytest.mark.parametrize(
@@ -31,14 +31,14 @@ def test_reference_srgb(vals, ref):
     ],
 )
 def test_reference_xyz(vals, ref):
-    srgb_linear = SRGBlinear()
-    assert np.all(abs(srgb_linear.to_xyz100(vals) - ref) < 1.0e-3 * np.array(ref))
+    vals = ColorCoordinates(vals, "srgblinear")
+    assert np.all(abs(convert(vals, "xyz100").data - ref) < 1.0e-3 * np.array(ref))
 
 
 def test_srgb_hex():
-    rgb1 = ColorCoordinates([0.3, 0.4, 0.5], SRGB1())
-    hex_coords = convert(rgb1, SRGBhex("clip"))
-    rgb1b = convert(hex_coords, SRGB1())
+    rgb1 = ColorCoordinates([0.3, 0.4, 0.5], "SRGB1")
+    hex_coords = convert(rgb1, "SRGBhex", mode="clip")
+    rgb1b = convert(hex_coords, "SRGB1")
     # hex can't exactly encode 0.3 and 0.5 but approximates here
     ref = [0.3019607843137255, 0.4, 0.5019607843137255]
     assert np.all(np.abs(rgb1b.data - ref) < 1.0e-13)
@@ -54,16 +54,18 @@ def test_whitepoint():
 def test_modes():
     xyz = [83.0, 53.0, 67.0]
 
-    with pytest.raises(Exception):
-        colorio.cs.SRGBlinear(mode="error").from_xyz100(xyz)
+    srgb_linear = colorio.cs.SRGBlinear()
 
-    rgb = colorio.cs.SRGBlinear(mode="nan").from_xyz100(xyz)
+    with pytest.raises(Exception):
+        srgb_linear.from_xyz100(xyz, mode="error")
+
+    rgb = srgb_linear.from_xyz100(xyz, mode="nan")
     assert np.isnan(rgb[0])
 
-    rgb = colorio.cs.SRGBlinear(mode="ignore").from_xyz100(xyz)
+    rgb = srgb_linear.from_xyz100(xyz, mode="ignore")
     ref = [1.5411487959020491, 0.21767779000754928, 0.6463796478923135]
     assert np.all(np.abs(rgb - ref) < 1.0e-13 * np.abs(ref))
 
-    rgb = colorio.cs.SRGBlinear(mode="clip").from_xyz100(xyz)
+    rgb = srgb_linear.from_xyz100(xyz, mode="clip")
     ref = [1.0, 0.21767779000754928, 0.6463796478923135]
     assert np.all(np.abs(rgb - ref) < 1.0e-13 * np.abs(ref))

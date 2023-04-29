@@ -4,6 +4,7 @@ from numpy.typing import ArrayLike
 
 from ..illuminants import whitepoints_cie1931
 from ._color_space import ColorSpace
+from ._helpers import register
 
 
 class RLAB(ColorSpace):
@@ -118,7 +119,7 @@ class RLAB(ColorSpace):
         # account for the environment adaptation of the human visual system.
         xyz_ref = npx.dot(self.A, xyz)
 
-        x_ref_s, y_ref_s, z_ref_s = xyz_ref ** self.sigma
+        x_ref_s, y_ref_s, z_ref_s = xyz_ref**self.sigma
 
         # LR represents an achromatic response analogous to CIELAB L*. The red-green
         # chromatic response is given by a_R (analogous to CIELAB a*) and the
@@ -138,3 +139,6 @@ class RLAB(ColorSpace):
 
         xyz_ref = np.array([x_ref_s, y_ref_s, z_ref_s]) ** (1.0 / self.sigma)
         return npx.dot(self.Ainv, xyz_ref)
+
+
+register("rlab", RLAB())

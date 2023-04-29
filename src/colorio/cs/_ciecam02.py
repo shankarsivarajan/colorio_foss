@@ -9,6 +9,7 @@ from .._exceptions import ColorioError
 from ..cat import cat02
 from ..illuminants import whitepoints_cie1931
 from ._color_space import ColorSpace
+from ._helpers import register
 
 M_hpe = np.array(
     [
@@ -73,7 +74,7 @@ def compute_from(rgb_, cs):
 
     # Step 9: Calculate the correlate of brightness
     sqrt_J_100 = np.sqrt(J / 100)
-    Q = (4 / cs.c) * sqrt_J_100 * (cs.A_w + 4) * cs.F_L ** 0.25
+    Q = (4 / cs.c) * sqrt_J_100 * (cs.A_w + 4) * cs.F_L**0.25
 
     # Step 10: Calculate the correlates of chroma (C), colourfulness (M) and saturation
     # (s)
@@ -85,10 +86,10 @@ def compute_from(rgb_, cs):
     if np.any(t < 0):
         raise ColorioError("CIECAM02 breakdown")
 
-    alpha = t ** 0.9 * (1.64 - 0.29 ** cs.n) ** 0.73
+    alpha = t**0.9 * (1.64 - 0.29**cs.n) ** 0.73
     C = alpha * sqrt_J_100
 
-    M = np.zeros(C.shape) if cs.F_L == np.inf else C * cs.F_L ** 0.25
+    M = np.zeros(C.shape) if cs.F_L == np.inf else C * cs.F_L**0.25
 
     # ENH avoid division by Q=0 here.
     # s = 100 * np.sqrt(M/Q)
@@ -106,13 +107,13 @@ def compute_to(data, description, cs):
         # Step 1-1: Compute J from Q (if start from Q)
         assert description[0] == "Q"
         Q = data[0]
-        J = 6.25 * (cs.c * Q / (cs.A_w + 4) / cs.F_L ** 0.25) ** 2
+        J = 6.25 * (cs.c * Q / (cs.A_w + 4) / cs.F_L**0.25) ** 2
 
     # Step 1-2: Calculate t from C, M, or s
     if description[1] in ["C", "M"]:
         if description[1] == "M":
             M = data[1]
-            C = M / cs.F_L ** 0.25
+            C = M / cs.F_L**0.25
         else:
             C = data[1]
 
@@ -126,7 +127,7 @@ def compute_to(data, description, cs):
         # C = s * s * Q / cs.F_L ** 0.25
         alpha = 4 * s * s * (cs.A_w + 4) / cs.c
 
-    t = (alpha / (1.64 - 0.29 ** cs.n) ** 0.73) ** (1 / 0.9)
+    t = (alpha / (1.64 - 0.29**cs.n) ** 0.73) ** (1 / 0.9)
 
     if description[2] == "h":
         h = data[2]
@@ -290,13 +291,13 @@ class CIECAM02:
         self.Minv = self.Minv @ np.linalg.inv(M_hpe)
 
         k = 1 / (5 * L_A + 1)
-        k4 = k ** 4
+        k4 = k**4
         l4 = 1 - k4
-        self.F_L = k4 * L_A + 0.1 * l4 ** 2 * np.cbrt(5 * L_A)
+        self.F_L = k4 * L_A + 0.1 * l4**2 * np.cbrt(5 * L_A)
 
         self.n = Y_b / Y_w
         self.z = 1.48 + np.sqrt(self.n)
-        self.N_bb = 0.725 / self.n ** 0.2
+        self.N_bb = 0.725 / self.n**0.2
         self.N_cb = self.N_bb
 
         RGB_w_ = self.M @ whitepoint
@@ -398,3 +399,8 @@ class CAM02UCS(CAM02):
 
     def __init__(self, c, Y_b, L_A, whitepoint):
         super().__init__("UCS", c, Y_b, L_A, whitepoint)
+
+
+register("cam02lcd", CAM02LCD(0.69, 18.0, 20.0, whitepoints_cie1931["D65"]))
+register("cam02scd", CAM02SCD(0.69, 18.0, 20.0, whitepoints_cie1931["D65"]))
+register("cam02ucs", CAM02UCS(0.69, 18.0, 20.0, whitepoints_cie1931["D65"]))
