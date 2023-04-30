@@ -1,10 +1,6 @@
 <p align="center">
-  <a href="https://github.com/shankarsivarajan/colorio_foss"><img alt="colorio_foss" src="logo/colorio_foss-logo.svg"></a>
-  <p align="center">Tools for color research.</p>
+  <a href="https://github.com/shankarsivarajan/colorio_foss"><img alt="colorio_foss" src="logo/colorio_foss-logo.png"  width="50%"></a>
 </p>
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1172995.svg?style=flat-square)](https://doi.org/10.5281/zenodo.1172995)
-
 
 ### Illuminants, observers, white points
 
@@ -512,7 +508,7 @@ plt.show()
 ```
 
 ### Articles
-
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1172995.svg?style=flat-square)](https://doi.org/10.5281/zenodo.1172995)
 - [Algorithmic improvements for the CIECAM02 and CAM16 color appearance models, Nico
   Schlömer, 2018](https://arxiv.org/abs/1802.06067)
 - [On the conversion from OSA-UCS to CIEXYZ, Nico Schlömer,
