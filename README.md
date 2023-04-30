@@ -1,28 +1,12 @@
 <p align="center">
-  <a href="https://github.com/nschloe/colorio"><img alt="colorio" src="https://nschloe.github.io/colorio/colorio-logo.svg" width="60%"></a>
-  <p align="center">Tools for color research.</p>
+  <a href="https://github.com/shankarsivarajan/colorio_foss"><img alt="colorio_foss" src="logo/colorio_foss-logo.png"  width="50%"></a>
 </p>
-
-[![PyPi Version](https://img.shields.io/pypi/v/colorio.svg?style=flat-square)](https://pypi.org/project/colorio/)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/colorio.svg?style=flat-square)](https://pypi.org/project/colorio/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1172995.svg?style=flat-square)](https://doi.org/10.5281/zenodo.1172995)
-[![GitHub stars](https://img.shields.io/github/stars/nschloe/colorio.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/colorio)
-[![Downloads](https://pepy.tech/badge/colorio/month?style=flat-square)](https://pepy.tech/project/colorio)
-
-<!--[![PyPi downloads](https://img.shields.io/pypi/dm/colorio.svg?style=flat-square)](https://pypistats.org/packages/colorio)-->
-
-[![Discord](https://img.shields.io/static/v1?logo=discord&logoColor=white&label=chat&message=on%20discord&color=7289da&style=flat-square)](https://discord.gg/hnTJ5MRX2Y)
-
-[![gh-actions](https://img.shields.io/github/workflow/status/nschloe/colorio/ci?style=flat-square)](https://github.com/nschloe/colorio/actions?query=workflow%3Aci)
-[![codecov](https://img.shields.io/codecov/c/github/nschloe/colorio.svg?style=flat-square)](https://app.codecov.io/gh/nschloe/colorio)
-[![LGTM](https://img.shields.io/lgtm/grade/python/github/nschloe/colorio.svg?style=flat-square)](https://lgtm.com/projects/g/nschloe/colorio)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
 ### Illuminants, observers, white points
 
 |                                Illuminants                                 |                                   CIE 1931 Observer                                    |
 | :------------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
-| <img src="https://nschloe.github.io/colorio/illuminants.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/cie-standard-observer-2.svg" width="100%"> |
+| <img src="plots/illuminants.svg" width="100%"> | <img src="plots/cie-standard-observer-2.svg" width="100%"> |
 
 ```python
 import colorio
@@ -213,8 +197,8 @@ colorio provides a number of useful tools for analyzing and visualizing color sp
 
 |                                         CIELAB                                         |                                        CAM16-UCS                                         |                                         Oklab                                         |
 | :------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
-|    <img src="https://nschloe.github.io/colorio/srgb-gamut-cielab.png" width="100%">    |     <img src="https://nschloe.github.io/colorio/srgb-gamut-cam16.png" width="100%">      |    <img src="https://nschloe.github.io/colorio/srgb-gamut-oklab.png" width="100%">    |
-| <img src="https://nschloe.github.io/colorio/srgb-gamut-slice-cielab.png" width="100%"> | <img src="https://nschloe.github.io/colorio/srgb-gamut-slice-cam16ucs.png" width="100%"> | <img src="https://nschloe.github.io/colorio/srgb-gamut-slice-oklab.png" width="100%"> |
+|    <img src="plots/srgb-gamut-cielab.png" width="100%">    |     <img src="plots/srgb-gamut-cam16.png" width="100%">      |    <img src="plots/srgb-gamut-oklab.png" width="100%">    |
+| <img src="plots/srgb-gamut-slice-cielab.png" width="100%"> | <img src="plots/srgb-gamut-slice-cam16ucs.png" width="100%"> | <img src="plots/srgb-gamut-slice-oklab.png" width="100%"> |
 
 The sRGB gamut is a perfect cube in sRGB space, and takes curious shapes when translated
 into other color spaces. The above images show the sRGB gamut in different color spaces.
@@ -260,7 +244,7 @@ p.show()
 
 #### Surface color gamut
 
-| <img src="https://nschloe.github.io/colorio/surface-gamut-xyz.png" width="100%"> | <img src="https://nschloe.github.io/colorio/surface-gamut-cielab.png" width="100%"> | <img src="https://nschloe.github.io/colorio/surface-gamut-cam16.png" width="100%"> |
+| <img src="plots/surface-gamut-xyz.png" width="100%"> | <img src="plots/surface-gamut-cielab.png" width="100%"> | <img src="plots/surface-gamut-cam16.png" width="100%"> |
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------: |
 |                                       XYZ                                        |                                       CIELAB                                        |                                     CAM16-UCS                                      |
 
@@ -288,8 +272,8 @@ The gamut is shown in grey since sRGB screens are not able to display the colors
 
 |                                          xyY                                           |                                          JzAzBz                                           |                                          Oklab                                           |
 | :------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: |
-|    <img src="https://nschloe.github.io/colorio/visible-gamut-xyy.png" width="100%">    |    <img src="https://nschloe.github.io/colorio/visible-gamut-jzazbz.png" width="100%">    |    <img src="https://nschloe.github.io/colorio/visible-gamut-oklab.png" width="100%">    |
-| <img src="https://nschloe.github.io/colorio/visible-gamut-slice-xyy.png" width="100%"> | <img src="https://nschloe.github.io/colorio/visible-gamut-slice-jzazbz.png" width="100%"> | <img src="https://nschloe.github.io/colorio/visible-gamut-slice-oklab.png" width="100%"> |
+|    <img src="plots/visible-gamut-xyy.png" width="100%">    |    <img src="plots/visible-gamut-jzazbz.png" width="100%">    |    <img src="plots/visible-gamut-oklab.png" width="100%">    |
+| <img src="plots/visible-gamut-slice-xyy.png" width="100%"> | <img src="plots/visible-gamut-slice-jzazbz.png" width="100%"> | <img src="plots/visible-gamut-slice-oklab.png" width="100%"> |
 
 Same as above, but with the gamut of visible colors up to a given lightness `Y`.
 
@@ -331,7 +315,7 @@ plt = colorio.plot_primary_srgb_gradients("cielab")
 plt.show()
 ```
 
-| <img src="https://nschloe.github.io/colorio/gradients-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/gradients-din99.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/gradients-oklab.svg" width="100%"> |
+| <img src="plots/gradients-cielab.svg" width="100%"> | <img src="plots/gradients-din99.svg" width="100%"> | <img src="plots/gradients-oklab.svg" width="100%"> |
 | :-----------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :----------------------------------------------------------------------------: |
 |                                     CIELAB                                      |                                     DIN99                                      |                                     OKLAB                                      |
 
@@ -342,7 +326,7 @@ certain properties of color spaces. Most data sets can also be visualized.
 
 #### Color differences
 
-| <img src="https://nschloe.github.io/colorio/macadam1974-xyy1.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/macadam1974-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/macadam1974-cam16ucs.svg" width="100%"> |
+| <img src="plots/macadam1974-xyy1.svg" width="100%"> | <img src="plots/macadam1974-cielab.svg" width="100%"> | <img src="plots/macadam1974-cam16ucs.svg" width="100%"> |
 | :-----------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 |                                       xyY                                       |                                      CIELAB                                       |                                        CAM16                                        |
 
@@ -379,7 +363,7 @@ colorio.data.COMBVD()  # a weighted combination of the above
 
 #### Munsell
 
-| <img src="https://nschloe.github.io/colorio/munsell-xyy1.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/munsell-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/munsell-cam16ucs.svg" width="100%"> |
+| <img src="plots/munsell-xyy1.svg" width="100%"> | <img src="plots/munsell-cielab.svg" width="100%"> | <img src="plots/munsell-cam16ucs.svg" width="100%"> |
 | :-------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
 |                                     xyY                                     |                                    CIELAB                                     |                                      CAM16                                      |
 
@@ -411,7 +395,7 @@ munsell = colorio.data.Munsell()
 
 ##### MacAdam ellipses (1942)
 
-| <img src="https://nschloe.github.io/colorio/macadam1942-xyy.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/macadam1942-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/macadam1942-cam16.svg" width="100%"> |
+| <img src="plots/macadam1942-xyy.svg" width="100%"> | <img src="plots/macadam1942-cielab.svg" width="100%"> | <img src="plots/macadam1942-cam16.svg" width="100%"> |
 | :----------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
 |                                 xyY (at Y=0.4)                                 |                                 CIELAB (at L=50)                                  |                                 CAM16 (at L=50)                                  |
 
@@ -431,7 +415,7 @@ the same size.
 
 ##### Luo-Rigg ellipses
 
-| <img src="https://nschloe.github.io/colorio/luo-rigg-xyy.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/luo-rigg-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/luo-rigg-cam16ucs.svg" width="100%"> |
+| <img src="plots/luo-rigg-xyy.svg" width="100%"> | <img src="plots/luo-rigg-cielab.svg" width="100%"> | <img src="plots/luo-rigg-cam16ucs.svg" width="100%"> |
 | :-------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
 |                                     xyY                                     |                                     CIELAB                                     |                                      CAM16                                       |
 
@@ -453,7 +437,7 @@ plt.show()
 
 ##### Ebner-Fairchild
 
-| <img src="https://nschloe.github.io/colorio/ebner-fairchild-xyy1.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/ebner-fairchild-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/ebner-fairchild-cam16ucs.svg" width="100%"> |
+| <img src="plots/ebner-fairchild-xyy1.svg" width="100%"> | <img src="plots/ebner-fairchild-cielab.svg" width="100%"> | <img src="plots/ebner-fairchild-cam16ucs.svg" width="100%"> |
 | :---------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
 |                                         xyY                                         |                                        CIELAB                                         |                                          CAM16                                          |
 
@@ -475,7 +459,7 @@ experiments](https://doi.org/10.1117/12.298269) in the hue-plane of some color s
 
 Likewise for [Hung-Berns](https://doi.org/10.1002/col.5080200506):
 
-| <img src="https://nschloe.github.io/colorio/hung-berns-xyy.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/hung-berns-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/hung-berns-cam16.svg" width="100%"> |
+| <img src="plots/hung-berns-xyy.svg" width="100%"> | <img src="plots/hung-berns-cielab.svg" width="100%"> | <img src="plots/hung-berns-cam16.svg" width="100%"> |
 | :---------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
 |                                      xyY                                      |                                      CIELAB                                      |                                      CAM16                                      |
 
@@ -493,7 +477,7 @@ plt.show()
 
 Likewise for [Xiao et al.](https://doi.org/10.1002/col.20637):
 
-| <img src="https://nschloe.github.io/colorio/xiao-xyy.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/xiao-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/xiao-cam16.svg" width="100%"> |
+| <img src="plots/xiao-xyy.svg" width="100%"> | <img src="plots/xiao-cielab.svg" width="100%"> | <img src="plots/xiao-cam16.svg" width="100%"> |
 | :---------------------------------------------------------------------: | :------------------------------------------------------------------------: | :-----------------------------------------------------------------------: |
 |                                   xyY                                   |                                   CIELAB                                   |                                   CAM16                                   |
 
@@ -509,7 +493,7 @@ plt.show()
 
 ###### Fairchild-Chen
 
-| <img src="https://nschloe.github.io/colorio/fairchild-chen-xyy.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/fairchild-chen-cielab.svg" width="100%"> | <img src="https://nschloe.github.io/colorio/fairchild-chen-cam16.svg" width="100%"> |
+| <img src="plots/fairchild-chen-xyy.svg" width="100%"> | <img src="plots/fairchild-chen-cielab.svg" width="100%"> | <img src="plots/fairchild-chen-cam16.svg" width="100%"> |
 | :-------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------: |
 |                                        xyY                                        |                                        CIELAB                                        |                                        CAM16                                        |
 
@@ -524,7 +508,7 @@ plt.show()
 ```
 
 ### Articles
-
+- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1172995.svg?style=flat-square)](https://doi.org/10.5281/zenodo.1172995)
 - [Algorithmic improvements for the CIECAM02 and CAM16 color appearance models, Nico
   Schlömer, 2018](https://arxiv.org/abs/1802.06067)
 - [On the conversion from OSA-UCS to CIEXYZ, Nico Schlömer,
@@ -532,14 +516,7 @@ plt.show()
 
 ### Installation
 
-colorio is [available from the Python Package Index](https://pypi.org/project/colorio/),
-so just use
-
-```
-pip install colorio
-```
-
-to install.
+`colorio_foss` is *NOT* is available from the Python Package Index, so you need to clone this repository.
 
 ### Testing
 
@@ -548,6 +525,9 @@ To run the tests, simply check out this repository and run
 ```
 tox
 ```
+### Logo 
+
+colorio_foss uses the [Vortex Abstract Modern](https://www.freepik.com/free-vector/vortex-abstract-modern-logo_35778808.htm) logo by arfmdn99, from Freepik.
 
 ### License
 
